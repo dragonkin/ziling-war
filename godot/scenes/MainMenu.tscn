@@ -1,0 +1,125 @@
+[gd_scene load_steps=4 format=3 uid="uid://mainmenu0001"]
+
+[ext_resource type="Script" path="res://scripts/MainMenu.gd" id="1_mm"]
+
+[sub_resource type="StyleBoxFlat" id="SB_panel"]
+bg_color = Color(0.16, 0.11, 0.07, 0.95)
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
+border_width_all = 4
+border_color = Color(0.78, 0.56, 0.18, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_help"]
+bg_color = Color(0.09, 0.06, 0.04, 0.72)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+border_width_all = 2
+border_color = Color(0.62, 0.45, 0.18, 0.85)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_mm")
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(760, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("SB_panel")
+
+[node name="VBox" type="VBoxContainer" parent="Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Center/Panel/VBox"]
+layout_mode = 2
+text = "字灵战记"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 62
+theme_override_colors/font_color = Color(1, 0.824, 0.235, 1)
+theme_override_colors/font_outline_color = Color(0.24, 0.1, 0.0, 1)
+theme_override_constants/outline_size = 8
+
+[node name="Sub" type="Label" parent="Center/Panel/VBox"]
+layout_mode = 2
+text = "汉字街机闯关 · 答题即必杀"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.95, 0.88, 0.72, 1)
+
+[node name="Stat" type="Label" parent="Center/Panel/VBox"]
+layout_mode = 2
+text = "已发现 0 / 0"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 0.86, 0.5, 1)
+
+[node name="HelpHead" type="Label" parent="Center/Panel/VBox"]
+layout_mode = 2
+text = "【怎么玩】"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 21
+theme_override_colors/font_color = Color(1, 0.824, 0.235, 1)
+
+[node name="HelpWrap" type="PanelContainer" parent="Center/Panel/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("SB_help")
+
+[node name="HelpText" type="Label" parent="Center/Panel/VBox/HelpWrap"]
+layout_mode = 2
+text = "← → 或 A / D　左右走动　　空格　跳起（躲箭·落石·水柱，还能踩怪）
+J　挥剑攻击（也可鼠标右键）　　双击 左/右　冲刺·跃起（空中再双击=向前飞）
+集满 5 个字 → 按 U 放必杀技！　　数字键 1~9　各有特技（翻滚/上挑/震地/回血…）
+对白太长？回车 或 鼠标左键 跳过
+BOSS 三招：冲刺撞人 / 跳压震地 / 召唤小兵 —— 看红圈预警，跳跃躲开！"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 19
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.03, 0.0, 1)
+theme_override_constants/outline_size = 5
+theme_override_constants/line_spacing = 5
+
+[node name="BtnRow1" type="HBoxContainer" parent="Center/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="BtnStart" type="Button" parent="Center/Panel/VBox/BtnRow1"]
+custom_minimum_size = Vector2(300, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "开始闯关"
+
+[node name="BtnDex" type="Button" parent="Center/Panel/VBox/BtnRow1"]
+custom_minimum_size = Vector2(300, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "字灵图鉴"
+
+[node name="BtnRow2" type="HBoxContainer" parent="Center/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="BtnReset" type="Button" parent="Center/Panel/VBox/BtnRow2"]
+custom_minimum_size = Vector2(300, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "重置进度"
+
+[node name="BtnQuit" type="Button" parent="Center/Panel/VBox/BtnRow2"]
+custom_minimum_size = Vector2(300, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "退出游戏"

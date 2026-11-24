@@ -1,0 +1,373 @@
+[gd_scene load_steps=6 format=3 uid="uid://battle00001"]
+
+[ext_resource type="Script" path="res://scripts/Battle.gd" id="1_battle"]
+
+[sub_resource type="StyleBoxFlat" id="SB_hp"]
+bg_color = Color(0.28, 0.86, 0.45, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="SB_hpbg"]
+bg_color = Color(0.08, 0.06, 0.12, 0.85)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="SB_en"]
+bg_color = Color(1, 0.82, 0.24, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="SB_boss"]
+bg_color = Color(0.55, 0.24, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Battle" type="Node2D"]
+script = ExtResource("1_battle")
+
+[node name="BG" type="Node2D" parent="."]
+z_index = -1000
+
+[node name="SkyBase" type="ColorRect" parent="BG"]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.42, 0.49, 0.58, 1)
+
+[node name="Far" type="TextureRect" parent="BG"]
+offset_top = -6.0
+offset_right = 1280.0
+offset_bottom = 726.0
+expand_mode = 1
+stretch_mode = 1
+
+[node name="GroundShade" type="ColorRect" parent="BG"]
+offset_top = 470.0
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.05, 0.04, 0.1, 0.08)
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="Terrain" type="Node2D" parent="World"]
+
+[node name="Hazards" type="Node2D" parent="World"]
+
+[node name="Enemies" type="Node2D" parent="World"]
+
+[node name="Drops" type="Node2D" parent="World"]
+
+[node name="FX" type="Node2D" parent="World"]
+
+[node name="Foreground" type="Node2D" parent="World"]
+z_index = 4000
+
+[node name="Gate" type="Node2D" parent="World"]
+
+[node name="Cam" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="StageLabel" type="Label" parent="UI/HUD"]
+offset_left = 24.0
+offset_top = 14.0
+offset_right = 700.0
+offset_bottom = 58.0
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+theme_override_colors/font_outline_color = Color(0.2, 0.1, 0.02, 1)
+theme_override_constants/outline_size = 7
+text = "关卡"
+
+[node name="WaveLabel" type="Label" parent="UI/HUD"]
+offset_left = 24.0
+offset_top = 58.0
+offset_right = 400.0
+offset_bottom = 90.0
+theme_override_font_sizes/font_size = 21
+theme_override_colors/font_color = Color(0.92, 0.88, 0.72, 1)
+theme_override_colors/font_outline_color = Color(0.12, 0.08, 0.02, 1)
+theme_override_constants/outline_size = 5
+text = "第 1 / 4 波"
+
+[node name="ComboLabel" type="Label" parent="UI/HUD"]
+offset_left = 24.0
+offset_top = 96.0
+offset_right = 600.0
+offset_bottom = 162.0
+pivot_offset = Vector2(80, 33)
+theme_override_font_sizes/font_size = 46
+theme_override_colors/font_color = Color(1, 0.45, 0.2, 1)
+theme_override_colors/font_outline_color = Color(0.25, 0.05, 0.0, 1)
+theme_override_constants/outline_size = 9
+text = ""
+
+[node name="ControlsHint" type="Label" parent="UI/HUD"]
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -150.0
+offset_right = 820.0
+offset_bottom = -118.0
+theme_override_font_sizes/font_size = 17
+theme_override_colors/font_color = Color(0.86, 0.91, 1.0, 0.82)
+theme_override_colors/font_outline_color = Color(0.05, 0.08, 0.15, 1)
+theme_override_constants/outline_size = 5
+text = "空格跳　J攻击　双击←→冲刺·跃起　1~9特技　回车跳过对白"
+
+[node name="HPWrap" type="Control" parent="UI/HUD"]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -364.0
+offset_top = 18.0
+offset_right = -24.0
+offset_bottom = 70.0
+
+[node name="HPLabel" type="Label" parent="UI/HUD/HPWrap"]
+offset_right = 340.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.75, 1.0, 0.85, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.12, 0.06, 1)
+theme_override_constants/outline_size = 5
+text = "字灵战士"
+
+[node name="HP" type="ProgressBar" parent="UI/HUD/HPWrap"]
+offset_top = 28.0
+offset_right = 340.0
+offset_bottom = 50.0
+max_value = 100.0
+value = 100.0
+show_percentage = false
+theme_override_styles/fill = SubResource("SB_hp")
+theme_override_styles/background = SubResource("SB_hpbg")
+
+[node name="EnergyWrap" type="Control" parent="UI/HUD"]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -364.0
+offset_top = 76.0
+offset_right = -24.0
+offset_bottom = 128.0
+
+[node name="ELabel" type="Label" parent="UI/HUD/EnergyWrap"]
+offset_right = 340.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 0.88, 0.55, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.09, 0.0, 1)
+theme_override_constants/outline_size = 5
+text = "字囊 0/5"
+
+[node name="Energy" type="ProgressBar" parent="UI/HUD/EnergyWrap"]
+offset_top = 28.0
+offset_right = 340.0
+offset_bottom = 48.0
+max_value = 5.0
+value = 0.0
+show_percentage = false
+theme_override_styles/fill = SubResource("SB_en")
+theme_override_styles/background = SubResource("SB_hpbg")
+
+[node name="PickedLabel" type="Label" parent="UI/HUD"]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -420.0
+offset_top = 180.0
+offset_right = -24.0
+offset_bottom = 216.0
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(1, 0.95, 0.75, 0.95)
+theme_override_colors/font_outline_color = Color(0.2, 0.1, 0.0, 1)
+theme_override_constants/outline_size = 5
+text = "已拾字：—"
+horizontal_alignment = 2
+
+[node name="UltHint" type="Label" parent="UI/HUD"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -580.0
+offset_top = 132.0
+offset_right = -24.0
+offset_bottom = 176.0
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.663, 0.753, 0.824, 1)
+theme_override_colors/font_outline_color = Color(0.3, 0.12, 0.0, 1)
+theme_override_constants/outline_size = 6
+text = "集满 5 个字按 U 放必杀"
+horizontal_alignment = 2
+
+[node name="ProgressWrap" type="Control" parent="UI/HUD"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -260.0
+offset_top = 16.0
+offset_right = 260.0
+offset_bottom = 62.0
+
+[node name="PLabel" type="Label" parent="UI/HUD/ProgressWrap"]
+offset_right = 520.0
+offset_bottom = 22.0
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(1, 0.95, 0.8, 1)
+theme_override_colors/font_outline_color = Color(0.12, 0.06, 0.0, 1)
+theme_override_constants/outline_size = 5
+text = "推进 0%"
+horizontal_alignment = 1
+
+[node name="Progress" type="ProgressBar" parent="UI/HUD/ProgressWrap"]
+offset_top = 24.0
+offset_right = 520.0
+offset_bottom = 40.0
+max_value = 100.0
+value = 0.0
+show_percentage = false
+theme_override_styles/fill = SubResource("SB_en")
+theme_override_styles/background = SubResource("SB_hpbg")
+
+[node name="BossWrap" type="Control" parent="UI/HUD"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_top = 150.0
+offset_right = 300.0
+offset_bottom = 205.0
+
+[node name="BossName" type="Label" parent="UI/HUD/BossWrap"]
+offset_right = 600.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.9, 0.7, 1, 1)
+text = "错别字魔王"
+horizontal_alignment = 1
+
+[node name="BossHP" type="ProgressBar" parent="UI/HUD/BossWrap"]
+offset_top = 30.0
+offset_right = 600.0
+offset_bottom = 52.0
+max_value = 260.0
+value = 260.0
+show_percentage = false
+theme_override_styles/fill = SubResource("SB_boss")
+theme_override_styles/background = SubResource("SB_hpbg")
+
+[node name="PickupBanner" type="Control" parent="UI"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -230.0
+offset_top = 190.0
+offset_right = 230.0
+offset_bottom = 470.0
+
+[node name="Card" type="Panel" parent="UI/PickupBanner"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Char" type="Label" parent="UI/PickupBanner"]
+offset_top = 24.0
+offset_right = 460.0
+offset_bottom = 160.0
+theme_override_font_sizes/font_size = 108
+theme_override_colors/font_color = Color(1, 0.97, 0.85, 1)
+theme_override_colors/font_outline_color = Color(0.63, 0.35, 0.0, 1)
+theme_override_constants/outline_size = 10
+text = "字"
+horizontal_alignment = 1
+
+[node name="Pinyin" type="Label" parent="UI/PickupBanner"]
+offset_top = 168.0
+offset_right = 460.0
+offset_bottom = 212.0
+theme_override_font_sizes/font_size = 34
+theme_override_colors/font_color = Color(1, 0.9, 0.55, 1)
+text = "zì"
+horizontal_alignment = 1
+
+[node name="Scene" type="Label" parent="UI/PickupBanner"]
+offset_left = 28.0
+offset_top = 218.0
+offset_right = 432.0
+offset_bottom = 270.0
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.95, 0.92, 0.85, 1)
+text = ""
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Toast" type="Label" parent="UI"]
+offset_left = 200.0
+offset_top = 300.0
+offset_right = 1080.0
+offset_bottom = 360.0
+theme_override_font_sizes/font_size = 40
+theme_override_colors/font_color = Color(1, 0.82, 0.24, 1)
+theme_override_colors/font_outline_color = Color(0.2, 0.08, 0.0, 1)
+theme_override_constants/outline_size = 8
+text = ""
+horizontal_alignment = 1
+
+[node name="ResultPanel" type="Control" parent="UI"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Dim" type="ColorRect" parent="UI/ResultPanel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.02, 0.02, 0.06, 0.75)
+
+[node name="Box" type="VBoxContainer" parent="UI/ResultPanel"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -180.0
+offset_right = 280.0
+offset_bottom = 180.0
+theme_override_constants/separation = 26
+
+[node name="Title" type="Label" parent="UI/ResultPanel/Box"]
+layout_mode = 2
+text = "通关！"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 64
+
+[node name="Info" type="Label" parent="UI/ResultPanel/Box"]
+layout_mode = 2
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 26
+theme_override_colors/font_color = Color(0.9, 0.86, 0.74, 1)
+
+[node name="Btn" type="Button" parent="UI/ResultPanel/Box"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 72)
+text = "返回选关"
+theme_override_font_sizes/font_size = 30

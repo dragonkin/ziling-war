@@ -1,0 +1,20 @@
+{
+  "name": "字灵图鉴 · 水之族",
+  "short_name": "字灵图鉴",
+  "description": "小学生游戏化识字：把汉字养成的过程，变成看得见的记忆成长。",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#eaf6ff",
+  "theme_color": "#3aa0ff",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

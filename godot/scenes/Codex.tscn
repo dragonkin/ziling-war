@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0dex0000001"]
+
+[ext_resource type="Script" path="res://scripts/Codex.gd" id="1_codex"]
+
+[node name="Codex" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_codex")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.122, 0.098, 0.176, 1)
+
+[node name="TopBar" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 24.0
+offset_top = 16.0
+offset_right = -24.0
+offset_bottom = 72.0
+theme_override_constants/separation = 24
+
+[node name="Back" type="Button" parent="TopBar"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "← 返回"
+
+[node name="Info" type="Label" parent="TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "字灵图鉴"
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(0.867, 0.78, 0.549, 1)
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 84.0
+offset_right = -24.0
+offset_bottom = -24.0
+
+[node name="Grid" type="GridContainer" parent="Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 8
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12

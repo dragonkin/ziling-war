@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#3aa0ff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="字灵图鉴">
+<title>字灵图鉴</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="icon" href="icon.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ================= 今日 ================= -->
+  <section id="screen-home" class="screen active">
+    <header class="hd">
+      <h1>字灵图鉴</h1>
+      <p class="sub">游戏化识字 · 字灵的形态就是你记得有多牢</p>
+    </header>
+
+    <div class="notice hidden" id="home-notice"></div>
+
+    <div class="card hero">
+      <div class="famrow grades" id="home-grades"></div>
+      <div class="famrow" id="home-fams"></div>
+      <div class="hero-row">
+        <div class="stat">
+          <div class="k">已发现</div>
+          <div class="v"><span id="home-found">0</span><small id="home-found-total">/0</small></div>
+        </div>
+        <div class="stat">
+          <div class="k">待复习</div>
+          <div class="v"><span id="home-due">0</span><small>字</small></div>
+        </div>
+        <div class="stat">
+          <div class="k">精通</div>
+          <div class="v"><span id="home-master">0</span><small id="home-master-total">/0</small></div>
+        </div>
+      </div>
+      <p class="hero-hint" id="hero-hint">「待复习」包含全部字族的字</p>
+      <button class="btn primary big" id="btn-start">开始学习</button>
+      <button class="btn ghost" id="btn-review">只做复习</button>
+    </div>
+
+    <div class="card">
+      <div class="card-t" id="home-shelf-title">我的字灵</div>
+      <div class="shelf" id="home-shelf"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-t" id="home-newtitle">还没遇到的字灵</div>
+      <div class="newrow" id="home-new"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-t" id="fam-introtitle">字族</div>
+      <p class="body-p" id="fam-introtext"></p>
+    </div>
+
+    <div class="card">
+      <div class="card-t">字灵怎么长大</div>
+      <p class="body-p dim">字灵的形态，就是你对它的记忆有多牢。今天认识它，它会变成 ★；隔几天、隔几周还记得，它就会一路进化到 👑。</p>
+    </div>
+  </section>
+
+  <!-- ================= 学习 / 复习 ================= -->
+  <section id="screen-learn" class="screen">
+    <div class="topbar">
+      <button class="back" id="btn-quit" aria-label="退出">✕</button>
+      <div class="stagetrack"><div class="stagefill" id="learn-fill"></div></div>
+      <div class="counter" id="learn-count">0/0</div>
+    </div>
+    <div id="learn-body"></div>
+  </section>
+
+  <!-- ================= 合成台 ================= -->
+  <section id="screen-fuse" class="screen">
+    <header class="hd">
+      <h1>合成台</h1>
+      <p class="sub">把字零件拼起来</p>
+    </header>
+
+    <div class="moderow">
+      <button class="modebtn on" data-mode="free">自由拼</button>
+      <button class="modebtn" data-mode="drill">组装练习</button>
+    </div>
+
+    <div class="card">
+      <div class="drill-prompt hidden" id="drill-prompt"></div>
+      <div class="slotrow">
+        <button class="slot" id="slot0">+</button>
+        <div class="plus">+</div>
+        <button class="slot" id="slot1">+</button>
+        <div class="eq">=</div>
+        <div class="slot result" id="slotr">?</div>
+      </div>
+      <div class="fuse-msg" id="fuse-msg"></div>
+      <button class="btn ghost" id="btn-clear">重新拼</button>
+    </div>
+
+    <div class="card">
+      <div class="card-t" id="pool-title">我有的字零件</div>
+      <div class="partgrid" id="fuse-parts"></div>
+      <p class="body-p dim" id="fuse-hint"></p>
+    </div>
+
+    <div class="card">
+      <div class="card-t">怎么玩</div>
+      <p class="body-p dim"><b>自由拼</b>：学过的字会被拆成零件收进来。点两个零件试试，能拼出来的就是你该认识的字。</p>
+      <p class="body-p dim"><b>组装练习</b>：给一张图和读音，把拼成它的两个字零件挑出来。</p>
+    </div>
+  </section>
+
+  <!-- ================= 图鉴 ================= -->
+  <section id="screen-dex" class="screen">
+    <header class="hd">
+      <h1 id="dex-title">图鉴</h1>
+      <p class="sub">点亮一个新字灵，就点亮一颗星</p>
+    </header>
+    <div class="famrow grades" id="dex-grades"></div>
+    <div class="famrow" id="dex-fams"></div>
+    <div class="dex" id="dex-grid"></div>
+    <div class="card">
+      <p class="body-p dim">灰色剪影 = 还没遇到。发现之后，星星越多代表记得越牢。点开任意一个字灵，能看到它下次什么时候回来复习。</p>
+    </div>
+  </section>
+
+  <!-- ================= 家长 ================= -->
+  <section id="screen-parent" class="screen">
+    <header class="hd">
+      <h1>家长页</h1>
+      <p class="sub">进度与薄弱字</p>
+    </header>
+    <div class="card" id="parent-stats"></div>
+    <div class="card" id="parent-quality"></div>
+    <div class="card">
+      <div class="card-t">需要多看一眼的字</div>
+      <div id="parent-weak" class="weak"></div>
+    </div>
+    <div class="card">
+      <div class="card-t">字表自检</div>
+      <p class="body-p dim">逐条检查字表数据是否完整、选项有没有写错。字表越大越需要它。</p>
+      <button class="btn ghost" id="btn-validate">检查字表</button>
+      <div id="validate-out" class="validate-out"></div>
+    </div>
+    <div class="card">
+      <div class="card-t">演示工具</div>
+      <p class="body-p dim">原型把「一天」做成可以手动快进，方便你几分钟内看到复习和进化效果。</p>
+      <button class="btn ghost" id="btn-ff">⏩ 快进一天</button>
+      <button class="btn ghost danger" id="btn-reset">清空存档，重新开始</button>
+    </div>
+    <div class="card">
+      <div class="card-t">装到手机上</div>
+      <p class="body-p dim">手机浏览器打开后，点菜单里的「添加到主屏幕」，就和一个 App 一样。电脑上直接双击 index.html 也能玩（发音和存档都正常）。</p>
+    </div>
+  </section>
+
+</div>
+
+<nav id="tabbar">
+  <button data-go="screen-home" class="on">今日</button>
+  <button data-go="screen-fuse">合成</button>
+  <button data-go="screen-dex">图鉴</button>
+  <button data-go="screen-parent">家长</button>
+</nav>
+
+<div id="toast"></div>
+<div id="overlay" class="hidden"><div id="overlay-card"></div></div>
+
+<script src="data/chars.js"></script>
+<script src="data/expand.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

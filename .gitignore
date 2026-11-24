@@ -1,0 +1,43 @@
+# ============================================================
+# 字灵战记 .gitignore —— 排除大体积二进制 / 可重建素材 / 缓存
+# ============================================================
+
+# ---- 构建 / 导出产物（单文件超 100MB，GitHub 无法托管）----
+*.exe
+*.exe.bak
+*.bak
+
+# ---- 弃用备份 ----
+_backup_voice_sapi/
+_backup_voice_story_12pct/
+
+# ---- 超大中间素材（立绘/抠图工作台，454MB，可重建）----
+立绘生成/
+
+# ---- 验证截图（构建产物，可重新生成）----
+验证截图_新动作/
+验证截图_第四批修复/
+验证截图_角色系统/
+
+# ---- Godot：编辑器本体 / 导入缓存 / 调试截图 ----
+godot/tools/
+godot/.godot/
+godot/shots/
+
+# ---- Godot：原工程自身的 git 历史（本地保留，不入库）----
+godot/.git-backup/
+
+# ---- Godot：可重建的生成素材（原图 / TTS 语音，用 tools 脚本重生成）----
+godot/assets/raw/
+godot/assets/raw2/
+godot/assets/raw3/
+godot/assets/raw3_new/
+godot/assets/raw_anim/
+godot/assets/raw_roster/
+godot/assets/voice/
+godot/assets/voice2/
+godot/assets/voice_story/
+
+# ---- 系统 ----
+Thumbs.db
+.DS_Store

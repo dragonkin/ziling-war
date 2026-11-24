@@ -1,0 +1,19 @@
+# 工具链 / Godot 编辑器本体（非项目源码，约 1.4G）
+/tools/
+
+# Godot 导入缓存（可由 .import 侧车文件重建）
+/.godot/
+
+# 调试截图
+/shots/
+
+# 二进制产物
+*.exe
+*.zip
+*.tpz
+*.apk
+*.pck
+
+# 操作系统垃圾
+.DS_Store
+Thumbs.db
