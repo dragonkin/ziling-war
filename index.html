@@ -1,179 +1,100 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
-<meta name="theme-color" content="#3aa0ff">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="字灵图鉴">
-<title>字灵图鉴</title>
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon.svg">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>字灵战记 · 在线试玩</title>
 <link rel="icon" href="icon.svg">
-<link rel="stylesheet" href="style.css">
+<meta name="description" content="字灵战记 —— 一部把汉字识字做成街机格斗的儿童游戏：拼字、学字、放大招打 Boss。">
+<style>
+  :root{
+    --bg:#0b1020; --panel:#151b33; --line:#2a3560; --gold:#ffd166; --cyan:#54d6ff;
+    --fire:#ff6b6b; --water:#4ec9ff; --text:#e8ecff; --dim:#9aa4cc;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(84,214,255,.14), transparent 60%),
+      radial-gradient(900px 500px at 10% 110%, rgba(255,107,107,.12), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif;
+    min-height:100vh; line-height:1.6;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:48px 20px 72px}
+  header{text-align:center;margin-bottom:36px}
+  .logo{font-size:44px;font-weight:800;letter-spacing:2px;margin-bottom:8px}
+  .logo b{background:linear-gradient(90deg,var(--fire),var(--gold),var(--water));
+    background-clip:text;-webkit-background-clip:text;color:transparent}
+  .tagline{color:var(--dim);font-size:16px}
+  .tagline em{color:var(--gold);font-style:normal}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:34px 0}
+  @media(max-width:640px){.cards{grid-template-columns:1fr}}
+  .card{
+    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.01)),var(--panel);
+    border:1px solid var(--line);border-radius:18px;padding:26px 24px;
+    display:flex;flex-direction:column;position:relative;overflow:hidden;
+    transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+  }
+  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,var(--fire),var(--gold),var(--water))}
+  .card:hover{transform:translateY(-4px);border-color:#3d4d8f;box-shadow:0 14px 40px rgba(0,0,0,.35)}
+  .card h2{font-size:22px;margin-bottom:4px;display:flex;align-items:center;gap:10px}
+  .icon{font-size:30px}
+  .badge{display:inline-block;font-size:11px;padding:2px 9px;border-radius:20px;
+    background:rgba(84,214,255,.15);color:var(--cyan);border:1px solid rgba(84,214,255,.35);margin-left:auto;font-weight:600}
+  .badge.b{background:rgba(255,209,102,.15);color:var(--gold);border-color:rgba(255,209,102,.35)}
+  .card p{color:var(--dim);font-size:14px;margin:10px 0 20px;flex:1}
+  .play{
+    display:inline-block;text-align:center;text-decoration:none;font-weight:700;font-size:16px;
+    padding:12px 20px;border-radius:12px;color:#0b1020;transition:filter .15s ease;
+  }
+  .play:hover{filter:brightness(1.08)}
+  .play.g {background:linear-gradient(90deg,var(--fire),var(--gold))}
+  .play.b {background:linear-gradient(90deg,var(--cyan),#4ea4ff);color:#062}
+  .shot{border-radius:12px;margin:40px 0 10px;overflow:hidden;border:1px solid var(--line)}
+  .shot img{width:100%;display:block}
+  .meta{color:var(--dim);font-size:13px;text-align:center;margin-top:26px}
+  .meta a{color:var(--cyan);text-decoration:none}
+  .meta a:hover{text-decoration:underline}
+  ul.facts{list-style:none;margin-top:14px;color:var(--dim);font-size:13px}
+  ul.facts li{padding:4px 0 4px 20px;position:relative}
+  ul.facts li::before{content:"✦";position:absolute;left:0;color:var(--gold)}
+</style>
 </head>
 <body>
+<div class="wrap">
+  <header>
+    <div class="logo">字<b>灵</b>战记</div>
+    <div class="tagline">把汉字识字做成街机格斗 —— 拼字、学字、放大招。<em>字灵的成长形态，就是记忆有多牢。</em></div>
+  </header>
 
-<div id="app">
-
-  <!-- ================= 今日 ================= -->
-  <section id="screen-home" class="screen active">
-    <header class="hd">
-      <h1>字灵图鉴</h1>
-      <p class="sub">游戏化识字 · 字灵的形态就是你记得有多牢</p>
-    </header>
-
-    <div class="notice hidden" id="home-notice"></div>
-
-    <div class="card hero">
-      <div class="famrow grades" id="home-grades"></div>
-      <div class="famrow" id="home-fams"></div>
-      <div class="hero-row">
-        <div class="stat">
-          <div class="k">已发现</div>
-          <div class="v"><span id="home-found">0</span><small id="home-found-total">/0</small></div>
-        </div>
-        <div class="stat">
-          <div class="k">待复习</div>
-          <div class="v"><span id="home-due">0</span><small>字</small></div>
-        </div>
-        <div class="stat">
-          <div class="k">精通</div>
-          <div class="v"><span id="home-master">0</span><small id="home-master-total">/0</small></div>
-        </div>
-      </div>
-      <p class="hero-hint" id="hero-hint">「待复习」包含全部字族的字</p>
-      <button class="btn primary big" id="btn-start">开始学习</button>
-      <button class="btn ghost" id="btn-review">只做复习</button>
-    </div>
-
+  <div class="cards">
     <div class="card">
-      <div class="card-t" id="home-shelf-title">我的字灵</div>
-      <div class="shelf" id="home-shelf"></div>
-    </div>
-
-    <div class="card">
-      <div class="card-t" id="home-newtitle">还没遇到的字灵</div>
-      <div class="newrow" id="home-new"></div>
-    </div>
-
-    <div class="card">
-      <div class="card-t" id="fam-introtitle">字族</div>
-      <p class="body-p" id="fam-introtext"></p>
-    </div>
-
-    <div class="card">
-      <div class="card-t">字灵怎么长大</div>
-      <p class="body-p dim">字灵的形态，就是你对它的记忆有多牢。今天认识它，它会变成 ★；隔几天、隔几周还记得，它就会一路进化到 👑。</p>
-    </div>
-  </section>
-
-  <!-- ================= 学习 / 复习 ================= -->
-  <section id="screen-learn" class="screen">
-    <div class="topbar">
-      <button class="back" id="btn-quit" aria-label="退出">✕</button>
-      <div class="stagetrack"><div class="stagefill" id="learn-fill"></div></div>
-      <div class="counter" id="learn-count">0/0</div>
-    </div>
-    <div id="learn-body"></div>
-  </section>
-
-  <!-- ================= 合成台 ================= -->
-  <section id="screen-fuse" class="screen">
-    <header class="hd">
-      <h1>合成台</h1>
-      <p class="sub">把字零件拼起来</p>
-    </header>
-
-    <div class="moderow">
-      <button class="modebtn on" data-mode="free">自由拼</button>
-      <button class="modebtn" data-mode="drill">组装练习</button>
-    </div>
-
-    <div class="card">
-      <div class="drill-prompt hidden" id="drill-prompt"></div>
-      <div class="slotrow">
-        <button class="slot" id="slot0">+</button>
-        <div class="plus">+</div>
-        <button class="slot" id="slot1">+</button>
-        <div class="eq">=</div>
-        <div class="slot result" id="slotr">?</div>
-      </div>
-      <div class="fuse-msg" id="fuse-msg"></div>
-      <button class="btn ghost" id="btn-clear">重新拼</button>
-    </div>
-
-    <div class="card">
-      <div class="card-t" id="pool-title">我有的字零件</div>
-      <div class="partgrid" id="fuse-parts"></div>
-      <p class="body-p dim" id="fuse-hint"></p>
-    </div>
-
-    <div class="card">
-      <div class="card-t">怎么玩</div>
-      <p class="body-p dim"><b>自由拼</b>：学过的字会被拆成零件收进来。点两个零件试试，能拼出来的就是你该认识的字。</p>
-      <p class="body-p dim"><b>组装练习</b>：给一张图和读音，把拼成它的两个字零件挑出来。</p>
-    </div>
-  </section>
-
-  <!-- ================= 图鉴 ================= -->
-  <section id="screen-dex" class="screen">
-    <header class="hd">
-      <h1 id="dex-title">图鉴</h1>
-      <p class="sub">点亮一个新字灵，就点亮一颗星</p>
-    </header>
-    <div class="famrow grades" id="dex-grades"></div>
-    <div class="famrow" id="dex-fams"></div>
-    <div class="dex" id="dex-grid"></div>
-    <div class="card">
-      <p class="body-p dim">灰色剪影 = 还没遇到。发现之后，星星越多代表记得越牢。点开任意一个字灵，能看到它下次什么时候回来复习。</p>
-    </div>
-  </section>
-
-  <!-- ================= 家长 ================= -->
-  <section id="screen-parent" class="screen">
-    <header class="hd">
-      <h1>家长页</h1>
-      <p class="sub">进度与薄弱字</p>
-    </header>
-    <div class="card" id="parent-stats"></div>
-    <div class="card" id="parent-quality"></div>
-    <div class="card">
-      <div class="card-t">需要多看一眼的字</div>
-      <div id="parent-weak" class="weak"></div>
+      <h2><span class="icon">⚔️</span>动作闯关游戏<span class="badge b">在线试玩</span></h2>
+      <p>三国战记式横版格斗。打怪掉汉字部件，捡齐拼成字、获得该字专属技能，集字放大招打倒守关妖王。61 个教材单元 / 326 幕，手机电脑都能玩。</p>
+      <a class="play g" href="字灵战记.html">▶ 开始闯关</a>
     </div>
     <div class="card">
-      <div class="card-t">字表自检</div>
-      <p class="body-p dim">逐条检查字表数据是否完整、选项有没有写错。字表越大越需要它。</p>
-      <button class="btn ghost" id="btn-validate">检查字表</button>
-      <div id="validate-out" class="validate-out"></div>
+      <h2><span class="icon">📖</span>字灵图鉴 / 识字原型<span class="badge">SRS 复习</span></h2>
+      <p>五族字灵 + 合成台 + 间隔重复复习 + 笔顺动画。图鉴里每个字灵的成长形态，一眼看出哪些字真记住了、哪些在装会。</p>
+      <a class="play b" href="字灵图鉴.html">📔 打开图鉴</a>
     </div>
-    <div class="card">
-      <div class="card-t">演示工具</div>
-      <p class="body-p dim">原型把「一天」做成可以手动快进，方便你几分钟内看到复习和进化效果。</p>
-      <button class="btn ghost" id="btn-ff">⏩ 快进一天</button>
-      <button class="btn ghost danger" id="btn-reset">清空存档，重新开始</button>
-    </div>
-    <div class="card">
-      <div class="card-t">装到手机上</div>
-      <p class="body-p dim">手机浏览器打开后，点菜单里的「添加到主屏幕」，就和一个 App 一样。电脑上直接双击 index.html 也能玩（发音和存档都正常）。</p>
-    </div>
-  </section>
+  </div>
 
+  <ul class="facts">
+    <li><b>答错零代价</b> —— 捡错只提示，被打死 800ms 原地复活，没有失败画面、没有排名</li>
+    <li><b>能力来自学会</b> —— 技能只能靠拼出字获得，绝不靠签到金币</li>
+    <li><b>数据真实</b> —— 61 个教材单元按「语文园地」收口切分 + 电子课本交叉核对，逐册 100% 吻合</li>
+  </ul>
+
+  <div class="shot"><img src="shots/v3-4-battle.png" alt="游戏战斗画面"></div>
+
+  <div class="meta">
+    源代码开源 · <a href="https://github.com/dragonkin/ziling-war">github.com/dragonkin/ziling-war</a><br>
+    另有 Godot 4.4 桌面街机版（.exe）与完整开发文档，见仓库 README。
+  </div>
 </div>
-
-<nav id="tabbar">
-  <button data-go="screen-home" class="on">今日</button>
-  <button data-go="screen-fuse">合成</button>
-  <button data-go="screen-dex">图鉴</button>
-  <button data-go="screen-parent">家长</button>
-</nav>
-
-<div id="toast"></div>
-<div id="overlay" class="hidden"><div id="overlay-card"></div></div>
-
-<script src="data/chars.js"></script>
-<script src="data/expand.js"></script>
-<script src="app.js"></script>
 </body>
 </html>
